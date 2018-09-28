@@ -121,18 +121,4 @@ class BST {
     return node;
   }
 }
-
-const bst = new BST();
-bst.insert(8);
-bst.insert(3);
-bst.insert(2);
-bst.insert(6);
-bst.insert(5);
-bst.insert(16);
-bst.insert(18);
-console.log(bst.inOrder(bst.root));
-bst.remove(3);
-console.log('----------------');
-console.log(bst.inOrder(bst.root));
-
 module.exports = BST;
