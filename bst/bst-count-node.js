@@ -44,26 +44,34 @@ module.exports = class BST {
 
   inOrder(node) {
     if (node !== null) {
-      inOrder(node.left);
-      console.log(`${node.show()} `  
-      inOrder(node.right);
+      this.inOrder(node.left);
+      console.log(`${node.show()} `);
+      this.inOrder(node.right);
     }
   }
 
   preOrder(node) {
     if (node !== null) {
-      console.log(`${node.show()} `  
-      inOrder(node.left);
-      inOrder(node.right);
+      console.log(`${node.show()} `); 
+      this.preOrder(node.left);
+      this.preOrder(node.right);
     }
   }
 
   postOrder(node) {
     if (node !== null) {
-      inOrder(node.left);
-      inOrder(node.right);
-      console.log(`${node.show()} `  
+      this.postOrder(node.left);
+      this.postOrder(node.right);
+      console.log(`${node.show()} `);
     }
+  }
+
+  getSmallest(node) {
+    let current = node;
+    while (current.left !== null) {
+      current = current.left;
+    }
+    return current;
   }
 
   getMin() {
@@ -103,15 +111,15 @@ module.exports = class BST {
       if (node.right === null) return node.left;
 
       // if two children exist in node
-      const tempNode = getMin(node.right);
+      const tempNode = this.getSmallest(node.right);
       node.data = tempNode.data;
-      node.right = removeNode(node.right, tempNode.data);
+      node.right = this.removeNode(node.right, tempNode.data);
       return node;
     } else if (data < node.data) {
-      node.left = removeNode(node.left, data);
+      node.left = this.removeNode(node.left, data);
       return node;
     }       
-    node.right = removeNode(node.right, data);
+    node.right = this.removeNode(node.right, data);
     return node;
   }
 
