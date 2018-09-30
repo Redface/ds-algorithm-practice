@@ -33,6 +33,22 @@ class Graph {
       if (!this.marked[w]) this.dfs(w);
     });
   }
+
+  bfs(s) {
+    const queue = [];
+    this.marked[s] = true;
+    queue.push(s);
+    while (queue.length > 0) {
+      const v = queue.shift();
+      if (v !== undefined) console.log(`Visited vertex : ${v}`);
+      this.adj[v].forEach((w) => {
+        if (!this.marked[w]) {
+          this.marked[w] = true;
+          queue.push(w);
+        }
+      });
+    }
+  }
 }
 module.exports = Graph;
 
@@ -42,4 +58,4 @@ g.addEdge(0, 2);
 g.addEdge(1, 3);
 g.addEdge(2, 4);
 g.showGraph();
-g.dfs(0);
+g.bfs(0);
