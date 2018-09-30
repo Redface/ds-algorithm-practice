@@ -8,6 +8,7 @@ class Graph {
       this.adj[i] = [];
       this.marked[i] = false;
     }
+    this.edgeTo = [];
   }
 
   addEdge(v, w) {
@@ -43,19 +44,24 @@ class Graph {
       if (v !== undefined) console.log(`Visited vertex : ${v}`);
       this.adj[v].forEach((w) => {
         if (!this.marked[w]) {
+          this.edgeTo[w] = v;
           this.marked[w] = true;
           queue.push(w);
         }
       });
     }
   }
+
+  pathTo(v) {
+    const source = 0;
+    const hasPathTo = v => this.marked[v];
+    if (!hasPathTo(v)) return undefined;
+    const path = [];
+    for (let i = v; i !== source; i = this.edgeTo[i]) {
+      path.push(i);
+    }
+    path.push(source);
+    return path;
+  }
 }
 module.exports = Graph;
-
-const g = new Graph(5);
-g.addEdge(0, 1);
-g.addEdge(0, 2);
-g.addEdge(1, 3);
-g.addEdge(2, 4);
-g.showGraph();
-g.bfs(0);
